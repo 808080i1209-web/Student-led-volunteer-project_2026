@@ -11,4 +11,573 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&display=swap');
-        b
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+        .step-active {
+            border-color: #10B981;
+            color: #10B981;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="p-2 bg-emerald-100 text-emerald-600 rounded-lg">
+                    <i data-lucide="leaf" class="w-6 h-6"></i>
+                </span>
+                <div>
+                    <h1 class="font-bold text-lg text-slate-900 leading-tight">RE:WEAR 캠페인</h1>
+                    <p class="text-xs text-emerald-600 font-semibold">2026 프로젝트 봉사</p>
+                </div>
+            </div>
+            <nav class="flex gap-1 bg-slate-100 p-1 rounded-lg text-xs md:text-sm">
+                <button onclick="switchTab('explore')" id="btn-explore" class="tab-btn px-3 py-1.5 rounded-md font-medium bg-white text-emerald-600 shadow-sm transition">1. 생애주기</button>
+                <button onclick="switchTab('calc')" id="btn-calc" class="tab-btn px-3 py-1.5 rounded-md font-medium text-slate-600 hover:text-slate-900 transition">2. 가치소비 계산기</button>
+                <button onclick="switchTab('poster')" id="btn-poster" class="tab-btn px-3 py-1.5 rounded-md font-medium text-slate-600 hover:text-slate-900 transition">3. 포스터 제작기</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6">
+        
+        <!-- SECTION 1: 의류 생애주기 탐색 (1~2차시 테마) -->
+        <section id="sec-explore" class="tab-content block space-y-6">
+            <div class="bg-emerald-600 rounded-2xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 max-w-lg">
+                    <span class="bg-emerald-500 text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">의류 생애주기 탐구</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold mt-3 leading-tight">패스트 패션의 이면,<br>Take-Make-Waste를 아시나요?</h2>
+                    <p class="text-emerald-100 text-sm mt-2 leading-relaxed">우리가 쉽게 사고 버리는 한 벌의 옷은 생산부터 폐기까지 지구에 엄청난 흔적을 남깁니다. 두 가지 생애주기 모델을 비교해 보세요.</p>
+                </div>
+                <div class="absolute right-[-20px] bottom-[-20px] opacity-10">
+                    <i data-lucide="refresh-cw" class="w-64 h-64 rotate-45"></i>
+                </div>
+            </div>
+
+            <!-- 모델 선택 토글 -->
+            <div class="grid grid-cols-2 gap-2 bg-white p-1.5 rounded-xl border border-slate-200">
+                <button onclick="toggleCycle('linear')" id="btn-cycle-linear" class="py-3 px-4 rounded-lg font-bold text-center transition bg-rose-50 text-rose-600 border border-rose-200">
+                    선형 모델 (Take-Make-Waste)
+                </button>
+                <button onclick="toggleCycle('circular')" id="btn-cycle-circular" class="py-3 px-4 rounded-lg font-bold text-center transition text-slate-600 hover:bg-slate-50">
+                    순환 경제 모델 (Circular)
+                </button>
+            </div>
+
+            <!-- 선형 생애주기 상세 -->
+            <div id="cycle-linear" class="space-y-4">
+                <div class="p-4 bg-rose-50 border border-rose-100 rounded-xl flex items-start gap-3">
+                    <span class="p-2 bg-rose-100 text-rose-600 rounded-lg shrink-0 mt-0.5">
+                        <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                    </span>
+                    <div>
+                        <h4 class="font-bold text-rose-900 text-sm md:text-base">자원 채취부터 폐기까지 일방통행 구조</h4>
+                        <p class="text-xs md:text-sm text-rose-700 mt-1 leading-relaxed">전통적인 패스트 패션 모델은 대량의 천연자원을 소모하여 빠르게 생산하고, 짧게 착용한 뒤 전량 매립되거나 소각되는 악순환을 가집니다.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+                        <span class="text-rose-500 font-extrabold text-2xl absolute right-4 top-4 opacity-20">01</span>
+                        <div class="text-rose-600 mb-3"><i data-lucide="shovel" class="w-8 h-8"></i></div>
+                        <h5 class="font-bold text-slate-900">Take (자원 채취)</h5>
+                        <p class="text-xs text-slate-500 mt-2">목화 재배에 매년 수조 리터의 물과 농약이 소모되고, 합성 섬유(폴리에스터) 생산을 위해 다량의 석유가 정제됩니다.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+                        <span class="text-rose-500 font-extrabold text-2xl absolute right-4 top-4 opacity-20">02</span>
+                        <div class="text-rose-600 mb-3"><i data-lucide="factory" class="w-8 h-8"></i></div>
+                        <h5 class="font-bold text-slate-900">Make (생산 & 가공)</h5>
+                        <p class="text-xs text-slate-500 mt-2">염색 과정에서 미세 플라스틱과 독성 화학물질이 강과 바다로 유출되며, 막대한 이산화탄소가 배출됩니다.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+                        <span class="text-rose-500 font-extrabold text-2xl absolute right-4 top-4 opacity-20">03</span>
+                        <div class="text-rose-600 mb-3"><i data-lucide="shopping-bag" class="w-8 h-8"></i></div>
+                        <h5 class="font-bold text-slate-900">Use (단기 착용)</h5>
+                        <p class="text-xs text-slate-500 mt-2">유행이 지나면 입지 않는 옷들이 옷장 구석에 쌓입니다. 평균적으로 옷 한 벌의 수명은 패스트 패션으로 인해 절반 가까이 단축되었습니다.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+                        <span class="text-rose-500 font-extrabold text-2xl absolute right-4 top-4 opacity-20">04</span>
+                        <div class="text-rose-600 mb-3"><i data-lucide="trash-2" class="w-8 h-8"></i></div>
+                        <h5 class="font-bold text-slate-900">Waste (폐기)</h5>
+                        <p class="text-xs text-slate-500 mt-2">매초 트럭 한 대 분량의 의류가 매립되거나 소각됩니다. 썩지 않는 합성 섬유는 수백 년 동안 환경을 오염시킵니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 순환 생애주기 상세 -->
+            <div id="cycle-circular" class="space-y-4 hidden">
+                <div class="p-4 bg-emerald-50 border border-emerald-100 rounded-xl flex items-start gap-3">
+                    <span class="p-2 bg-emerald-100 text-emerald-600 rounded-lg shrink-0 mt-0.5">
+                        <i data-lucide="check-circle" class="w-5 h-5"></i>
+                    </span>
+                    <div>
+                        <h4 class="font-bold text-emerald-900 text-sm md:text-base">폐기물 제로(Zero-Waste)를 지향하는 영속 구조</h4>
+                        <p class="text-xs md:text-sm text-emerald-700 mt-1 leading-relaxed">순환 모델은 디자인 단계부터 재활용을 고려하고, 업사이클링, 대여, 친환경 생분해 원사를 사용하여 환경 부하를 최소화합니다.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+                        <span class="text-emerald-500 font-extrabold text-2xl absolute right-4 top-4 opacity-20">01</span>
+                        <div class="text-emerald-600 mb-3"><i data-lucide="flower" class="w-8 h-8"></i></div>
+                        <h5 class="font-bold text-slate-900">Eco Source</h5>
+                        <p class="text-xs text-slate-500 mt-2">유기농 면, 재생 나일론, 선인장 가죽 등 환경 파괴가 적고 지속 가능한 원재료를 채택합니다.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+                        <span class="text-emerald-500 font-extrabold text-2xl absolute right-4 top-4 opacity-20">02</span>
+                        <div class="text-emerald-600 mb-3"><i data-lucide="shield-check" class="w-8 h-8"></i></div>
+                        <h5 class="font-bold text-slate-900">Green Make</h5>
+                        <p class="text-xs text-slate-500 mt-2">재생 에너지를 사용하는 공장에서 유해 화학물질 배출을 전면 차단하여 깨끗하게 염색하고 생산합니다.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+                        <span class="text-emerald-500 font-extrabold text-2xl absolute right-4 top-4 opacity-20">03</span>
+                        <div class="text-emerald-600 mb-3"><i data-lucide="repeat" class="w-8 h-8"></i></div>
+                        <h5 class="font-bold text-slate-900">Slow & Share</h5>
+                        <p class="text-xs text-slate-500 mt-2">수선하여 오래 입기, 의류 대여 서비스, 중고 거래 문화를 활성화하여 옷의 가치를 최대한 보존합니다.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+                        <span class="text-emerald-500 font-extrabold text-2xl absolute right-4 top-4 opacity-20">04</span>
+                        <div class="text-emerald-600 mb-3"><i data-lucide="recycle" class="w-8 h-8"></i></div>
+                        <h5 class="font-bold text-slate-900">Recycle & Up</h5>
+                        <p class="text-xs text-slate-500 mt-2">버려진 옷을 화학적으로 분해해 다시 원사로 뽑아내거나, 독창적인 업사이클링 제품으로 재탄생시킵니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: 가치소비 & 탄소 발자국 계산기 (3차시 테마) -->
+        <section id="sec-calc" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="font-bold text-xl text-slate-900 flex items-center gap-2">
+                    <i data-lucide="calculator" class="text-emerald-600 w-6 h-6"></i>
+                    나의 의류 소비 환경 발자국 계산기
+                </h3>
+                <p class="text-slate-500 text-xs md:text-sm mt-1">한 해 동안 내가 소비하는 옷들의 환경적 비용을 실시간으로 확인해 보세요.</p>
+                
+                <div class="mt-6 space-y-4">
+                    <!-- 입력 아이템 1 -->
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <div class="flex items-center gap-3">
+                            <span class="p-2.5 bg-sky-100 text-sky-600 rounded-lg">
+                                <i data-lucide="shirt" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-800">티셔츠 / 와이셔츠</h4>
+                                <p class="text-xs text-slate-400">장당 대략 CO2 2.7kg, 물 2,700L 소모</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="changeQty('tshirt', -1)" class="w-8 h-8 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">-</button>
+                            <span id="qty-tshirt" class="font-bold text-lg w-6 text-center text-slate-800">0</span>
+                            <button onclick="changeQty('tshirt', 1)" class="w-8 h-8 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">+</button>
+                        </div>
+                    </div>
+
+                    <!-- 입력 아이템 2 -->
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <div class="flex items-center gap-3">
+                            <span class="p-2.5 bg-indigo-100 text-indigo-600 rounded-lg">
+                                <!-- 가상의 바지 아이콘 대체 -->
+                                <i data-lucide="layers" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-800">청바지 (데님류)</h4>
+                                <p class="text-xs text-slate-400">장당 대략 CO2 33.4kg, 물 7,000L 소모</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="changeQty('jeans', -1)" class="w-8 h-8 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">-</button>
+                            <span id="qty-jeans" class="font-bold text-lg w-6 text-center text-slate-800">0</span>
+                            <button onclick="changeQty('jeans', 1)" class="w-8 h-8 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">+</button>
+                        </div>
+                    </div>
+
+                    <!-- 입력 아이템 3 -->
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <div class="flex items-center gap-3">
+                            <span class="p-2.5 bg-amber-100 text-amber-600 rounded-lg">
+                                <i data-lucide="pocket" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-800">재킷 / 코트 / 패딩</h4>
+                                <p class="text-xs text-slate-400">장당 대략 CO2 50kg, 물 10,000L 소모</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="changeQty('outer', -1)" class="w-8 h-8 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">-</button>
+                            <span id="qty-outer" class="font-bold text-lg w-6 text-center text-slate-800">0</span>
+                            <button onclick="changeQty('outer', 1)" class="w-8 h-8 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 계산 결과 -->
+                <div class="mt-8 p-6 bg-emerald-50 rounded-2xl border border-emerald-100 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <div class="text-xs font-bold text-emerald-700 tracking-wider">예상 물 소비량</div>
+                        <div class="flex items-baseline gap-1 text-emerald-950">
+                            <span id="res-water" class="text-3xl font-extrabold text-emerald-600">0</span>
+                            <span class="text-sm font-semibold">리터 (L)</span>
+                        </div>
+                        <p id="desc-water" class="text-xs text-emerald-800 leading-relaxed mt-1">스마트폰을 약 0일 동안 충전하지 않고 아낄 수 있는 물의 양입니다.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-xs font-bold text-emerald-700 tracking-wider">탄소 배출량 (CO2)</div>
+                        <div class="flex items-baseline gap-1 text-emerald-950">
+                            <span id="res-co2" class="text-3xl font-extrabold text-emerald-600">0</span>
+                            <span class="text-sm font-semibold">kg</span>
+                        </div>
+                        <p id="desc-co2" class="text-xs text-emerald-800 leading-relaxed mt-1">소나무 0그루가 1년 동안 흡수해야 하는 탄소량과 같습니다.</p>
+                    </div>
+                </div>
+
+                <!-- ESG Action 제안 -->
+                <div class="mt-6 border-t border-slate-100 pt-6">
+                    <h4 class="font-bold text-slate-900 text-sm mb-3">탄소 발자국을 줄이는 착한 가치소비 행동 가이드</h4>
+                    <ul class="space-y-2 text-xs md:text-sm text-slate-600">
+                        <li class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            <span><strong>충동구매 지양:</strong> 구매 전 '최소 30번 이상 입을 옷인가?' 스스로 질문하기</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            <span><strong>친환경 소재 탐색:</strong> 리사이클 섬유나 오가닉 면을 사용하는 ESG 실천 브랜드 지지하기</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            <span><strong>의류 순환 동참:</strong> 안 입는 옷은 기부하거나 리폼(업사이클링)하기</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: 디지털 포스터 제작기 (4~5차시 테마) -->
+        <section id="sec-poster" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                
+                <!-- 왼쪽: 컨트롤러 (슬로건 편집 및 색상 지정) -->
+                <div class="md:col-span-5 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="font-bold text-lg text-slate-900 flex items-center gap-2">
+                        <i data-lucide="palette" class="text-emerald-600 w-5 h-5"></i>
+                        캠페인 포스터 꾸미기
+                    </h3>
+                    <p class="text-slate-500 text-xs">학교 게시판이나 복도에 부착할 나만의 친환경 슬로건 포스터를 만들어 인쇄해 보세요!</p>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-2">테마 스타일</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="changePosterTheme('emerald')" class="py-2 px-3 border border-emerald-500 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-700 text-center">에메랄드 포레스트</button>
+                            <button onclick="changePosterTheme('dark')" class="py-2 px-3 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 text-center hover:bg-slate-50">어반 다크</button>
+                            <button onclick="changePosterTheme('rose')" class="py-2 px-3 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 text-center hover:bg-slate-50">로즈 핑크</button>
+                            <button onclick="changePosterTheme('earth')" class="py-2 px-3 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 text-center hover:bg-slate-50">얼스 브라운</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-2">메인 슬로건 설정</label>
+                        <select onchange="applyPresetSlogan(this.value)" class="w-full text-xs p-2 border border-slate-200 rounded-lg bg-white mb-2">
+                            <option value="preset1">더 건강한 지구를 위한, 의류 다이어트</option>
+                            <option value="preset2">패스트 패션의 끝, 순환 경제의 시작</option>
+                            <option value="preset3">내가 입는 옷이 지구의 미래를 결정합니다</option>
+                            <option value="custom">직접 입력하기</option>
+                        </select>
+                        <input id="input-slogan" type="text" oninput="updatePosterText('slogan', this.value)" placeholder="슬로건을 입력하세요" class="w-full text-xs p-2 border border-slate-200 rounded-lg" value="더 건강한 지구를 위한, 의류 다이어트">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-2">서브 핵심 문구</label>
+                        <textarea id="input-desc" oninput="updatePosterText('desc', this.value)" rows="3" class="w-full text-xs p-2 border border-slate-200 rounded-lg" placeholder="내용을 입력하세요">패스트 패션(Take-Make-Waste)의 악순환을 끊고, 환경을 보호하는 가치 소비에 동참해 주세요.</textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">우리 학교/팀 이름</label>
+                        <input id="input-team" type="text" oninput="updatePosterText('team', this.value)" value="2026 교내 ESG 실천 동아리" class="w-full text-xs p-2 border border-slate-200 rounded-lg">
+                    </div>
+
+                    <!-- 안내 박스 -->
+                    <div class="p-3 bg-amber-50 rounded-xl border border-amber-100 flex gap-2">
+                        <i data-lucide="info" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5"></i>
+                        <p class="text-[11px] text-amber-800 leading-relaxed">슬로건과 테마를 변경하면 오른쪽의 포스터 디자인이 실시간으로 변경됩니다. 캡처하거나 프린트하여 교내 캠페인 부착물로 유용하게 사용해 보세요!</p>
+                    </div>
+                </div>
+
+                <!-- 오른쪽: 실시간 렌더링 포스터 (모바일 친화, 스크린샷 대응) -->
+                <div class="md:col-span-7 flex flex-col items-center justify-center">
+                    <div id="poster-canvas" class="w-full max-w-[360px] aspect-[1/1.4] bg-emerald-600 text-white rounded-3xl p-8 shadow-2xl flex flex-col justify-between relative overflow-hidden transition-all duration-300">
+                        
+                        <!-- 배경 데코 도형 -->
+                        <div id="poster-deco-1" class="absolute top-[-30px] right-[-30px] w-48 h-48 rounded-full bg-emerald-500 opacity-30 blur-2xl"></div>
+                        <div id="poster-deco-2" class="absolute bottom-[-50px] left-[-30px] w-64 h-64 rounded-full bg-emerald-400 opacity-20 blur-xl"></div>
+
+                        <div class="relative z-10 flex flex-col h-full justify-between">
+                            <!-- 헤더 -->
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-[10px] uppercase tracking-widest text-emerald-100 font-semibold" id="poster-category">ECO-FRIENDLY PROJECT</p>
+                                    <h4 class="text-xs font-bold text-white mt-0.5" id="p-team">2026 교내 ESG 실천 동아리</h4>
+                                </div>
+                                <span class="p-1.5 bg-white/10 backdrop-blur-md text-white rounded-lg">
+                                    <i data-lucide="leaf" class="w-5 h-5"></i>
+                                </span>
+                            </div>
+
+                            <!-- 바디 (슬로건) -->
+                            <div class="my-auto py-6">
+                                <h3 class="text-2xl md:text-3xl font-extrabold leading-snug break-keep drop-shadow-md" id="p-slogan">
+                                    더 건강한 지구를 위한, 의류 다이어트
+                                </h3>
+                                <div class="w-12 h-1 bg-white my-4 rounded-full" id="p-divider"></div>
+                                <p class="text-xs md:text-sm text-emerald-100 leading-relaxed break-keep" id="p-desc">
+                                    패스트 패션(Take-Make-Waste)의 악순환을 끊고, 환경을 보호하는 가치 소비에 동참해 주세요.
+                                </p>
+                            </div>
+
+                            <!-- 푸터 (환경 아이콘 및 캠페인 가치) -->
+                            <div class="border-t border-white/20 pt-4 flex justify-between items-center text-[10px]">
+                                <div class="flex gap-2">
+                                    <span class="px-2 py-1 bg-white/10 rounded-full font-bold">#RE_WEAR</span>
+                                    <span class="px-2 py-1 bg-white/10 rounded-full font-bold">#ESG_CAMP</span>
+                                </div>
+                                <div class="flex items-center gap-1 font-semibold text-emerald-100">
+                                    <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+                                    <span>지구를 구하는 작은 실천</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 이미지 저장 안내 및 캡처 버튼 -->
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="capturePoster()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs md:text-sm font-bold shadow-md flex items-center gap-2 transition">
+                            <i data-lucide="camera" class="w-4 h-4"></i>
+                            완성본 화면 캡처하기
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-4xl mx-auto px-4 text-center space-y-2">
+            <p class="text-xs text-slate-400">© 2026 RE:WEAR Project. 교내 환경 보전 및 가치 소비를 제안하는 친환경 디지털 캠페인 솔루션.</p>
+            <p class="text-[10px] text-slate-400">의류 생애주기 탐색(1-2차시) | ESG 경영 브랜드 탐구(3차시) | 홍보 게시물 제작 및 부착(4-5차시) 활동 연계용 개발 템플릿</p>
+        </div>
+    </footer>
+
+    <!-- 알림 모달 (Alert 대체용 커스텀 모달) -->
+    <div id="alert-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[100] hidden">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl text-center space-y-4">
+            <div class="mx-auto w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center">
+                <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-slate-900" id="alert-title">알림</h4>
+                <p class="text-xs text-slate-500 mt-2 leading-relaxed" id="alert-msg">처리가 완료되었습니다.</p>
+            </div>
+            <button onclick="closeAlert()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition">확인</button>
+        </div>
+    </div>
+
+    <!-- JS Logic -->
+    <script>
+        // Lucide 아이콘 로드
+        lucide.createIcons();
+
+        // 탭 전환 기능
+        function switchTab(tabId) {
+            // 모든 탭 컨텐츠 숨기기
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('block'));
+            
+            // 모든 탭 버튼 활성화 해제
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-white', 'text-emerald-600', 'shadow-sm');
+                el.classList.add('text-slate-600', 'hover:text-slate-900');
+            });
+
+            // 지정 탭 보이기 및 버튼 활성화
+            const activeTab = document.getElementById(`sec-${tabId}`);
+            if (activeTab) {
+                activeTab.classList.remove('hidden');
+                activeTab.classList.add('block');
+            }
+
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-600', 'hover:text-slate-900');
+                activeBtn.classList.add('bg-white', 'text-emerald-600', 'shadow-sm');
+            }
+        }
+
+        // 1차시 생애주기 토글 기능
+        function toggleCycle(type) {
+            const linearDiv = document.getElementById('cycle-linear');
+            const circularDiv = document.getElementById('cycle-circular');
+            const btnLinear = document.getElementById('btn-cycle-linear');
+            const btnCircular = document.getElementById('btn-cycle-circular');
+
+            if (type === 'linear') {
+                linearDiv.classList.remove('hidden');
+                circularDiv.classList.add('hidden');
+                
+                btnLinear.className = "py-3 px-4 rounded-lg font-bold text-center transition bg-rose-50 text-rose-600 border border-rose-200";
+                btnCircular.className = "py-3 px-4 rounded-lg font-bold text-center transition text-slate-600 hover:bg-slate-50";
+            } else {
+                linearDiv.classList.add('hidden');
+                circularDiv.classList.remove('hidden');
+
+                btnLinear.className = "py-3 px-4 rounded-lg font-bold text-center transition text-slate-600 hover:bg-slate-50";
+                btnCircular.className = "py-3 px-4 rounded-lg font-bold text-center transition bg-emerald-50 text-emerald-600 border border-emerald-200";
+            }
+        }
+
+        // 2차시 가치소비 계산기 로직
+        const qty = { tshirt: 0, jeans: 0, outer: 0 };
+        const footprint = {
+            tshirt: { water: 2700, co2: 2.7 },
+            jeans: { water: 7000, co2: 33.4 },
+            outer: { water: 10000, co2: 50.0 }
+        };
+
+        function changeQty(item, amount) {
+            qty[item] = Math.max(0, qty[item] + amount);
+            document.getElementById(`qty-${item}`).innerText = qty[item];
+            calculateFootprint();
+        }
+
+        function calculateFootprint() {
+            let totalWater = 0;
+            let totalCo2 = 0;
+
+            for (const key in qty) {
+                totalWater += qty[key] * footprint[key].water;
+                totalCo2 += qty[key] * footprint[key].co2;
+            }
+
+            // 결과 업데이트
+            document.getElementById('res-water').innerText = totalWater.toLocaleString();
+            document.getElementById('res-co2').innerText = totalCo2.toFixed(1);
+
+            // 가치 묘사 계산
+            // 스마트폰 충전 수명 (물 정수 기준 1L 절약 시 스마트폰 약 10시간 완충 시 전력 대비 수치 등 단순 비유 제공)
+            const chargeDays = Math.round(totalWater / 20); 
+            const trees = (totalCo2 / 6.6).toFixed(1); // 소나무 한그루 1년 6.6kg 흡수 기준
+
+            document.getElementById('desc-water').innerText = `성인 한 사람이 대략 ${Math.round(totalWater / 2)}일 동안 마실 수 있는 소중한 물의 양입니다.`;
+            document.getElementById('desc-co2').innerText = `30년생 소나무 약 ${trees}그루가 1년 동안 흡수해야 하는 엄청난 탄소 배출량과 비견됩니다.`;
+        }
+
+        // 3차시 포스터 제작기 로직
+        function changePosterTheme(theme) {
+            const canvas = document.getElementById('poster-canvas');
+            const deco1 = document.getElementById('poster-deco-1');
+            const deco2 = document.getElementById('poster-deco-2');
+            const divider = document.getElementById('p-divider');
+            const slogan = document.getElementById('p-slogan');
+            const desc = document.getElementById('p-desc');
+            const team = document.getElementById('p-team');
+            const category = document.getElementById('poster-category');
+
+            // 테마 리스트 초기화
+            canvas.className = "w-full max-w-[360px] aspect-[1/1.4] rounded-3xl p-8 shadow-2xl flex flex-col justify-between relative overflow-hidden transition-all duration-300 ";
+
+            // 리셋 후 테마별 클래스 삽입
+            if (theme === 'emerald') {
+                canvas.classList.add('bg-emerald-600', 'text-white');
+                deco1.className = "absolute top-[-30px] right-[-30px] w-48 h-48 rounded-full bg-emerald-500 opacity-30 blur-2xl";
+                deco2.className = "absolute bottom-[-50px] left-[-30px] w-64 h-64 rounded-full bg-emerald-400 opacity-20 blur-xl";
+                divider.className = "w-12 h-1 bg-white my-4 rounded-full";
+                slogan.className = "text-2xl md:text-3xl font-extrabold leading-snug break-keep drop-shadow-md text-white";
+                desc.className = "text-xs md:text-sm text-emerald-100 leading-relaxed break-keep";
+                team.className = "text-xs font-bold text-white mt-0.5";
+                category.className = "text-[10px] uppercase tracking-widest text-emerald-100 font-semibold";
+            } else if (theme === 'dark') {
+                canvas.classList.add('bg-slate-900', 'text-white');
+                deco1.className = "absolute top-[-30px] right-[-30px] w-48 h-48 rounded-full bg-emerald-500 opacity-15 blur-2xl";
+                deco2.className = "absolute bottom-[-50px] left-[-30px] w-64 h-64 rounded-full bg-indigo-500 opacity-15 blur-xl";
+                divider.className = "w-12 h-1 bg-emerald-500 my-4 rounded-full";
+                slogan.className = "text-2xl md:text-3xl font-extrabold leading-snug break-keep drop-shadow-md text-white";
+                desc.className = "text-xs md:text-sm text-slate-300 leading-relaxed break-keep";
+                team.className = "text-xs font-bold text-emerald-400 mt-0.5";
+                category.className = "text-[10px] uppercase tracking-widest text-slate-400 font-semibold";
+            } else if (theme === 'rose') {
+                canvas.classList.add('bg-rose-500', 'text-white');
+                deco1.className = "absolute top-[-30px] right-[-30px] w-48 h-48 rounded-full bg-rose-400 opacity-30 blur-2xl";
+                deco2.className = "absolute bottom-[-50px] left-[-30px] w-64 h-64 rounded-full bg-pink-300 opacity-20 blur-xl";
+                divider.className = "w-12 h-1 bg-white my-4 rounded-full";
+                slogan.className = "text-2xl md:text-3xl font-extrabold leading-snug break-keep drop-shadow-md text-white";
+                desc.className = "text-xs md:text-sm text-rose-100 leading-relaxed break-keep";
+                team.className = "text-xs font-bold text-white mt-0.5";
+                category.className = "text-[10px] uppercase tracking-widest text-rose-100 font-semibold";
+            } else if (theme === 'earth') {
+                canvas.classList.add('bg-amber-800', 'text-amber-50');
+                deco1.className = "absolute top-[-30px] right-[-30px] w-48 h-48 rounded-full bg-amber-700 opacity-35 blur-2xl";
+                deco2.className = "absolute bottom-[-50px] left-[-30px] w-64 h-64 rounded-full bg-emerald-700 opacity-20 blur-xl";
+                divider.className = "w-12 h-1 bg-emerald-400 my-4 rounded-full";
+                slogan.className = "text-2xl md:text-3xl font-extrabold leading-snug break-keep drop-shadow-md text-amber-50";
+                desc.className = "text-xs md:text-sm text-amber-100/90 leading-relaxed break-keep";
+                team.className = "text-xs font-bold text-emerald-300 mt-0.5";
+                category.className = "text-[10px] uppercase tracking-widest text-amber-200 font-semibold";
+            }
+        }
+
+        function updatePosterText(target, value) {
+            const targetEl = document.getElementById(`p-${target}`);
+            if (targetEl) {
+                targetEl.innerText = value;
+            }
+        }
+
+        function applyPresetSlogan(val) {
+            const sloganInput = document.getElementById('input-slogan');
+            const descInput = document.getElementById('input-desc');
+
+            if (val === 'preset1') {
+                sloganInput.value = "더 건강한 지구를 위한, 의류 다이어트";
+                descInput.value = "패스트 패션(Take-Make-Waste)의 악순환을 끊고, 환경을 보호하는 가치 소비에 동참해 주세요.";
+            } else if (val === 'preset2') {
+                sloganInput.value = "패스트 패션의 끝, 순환 경제의 시작";
+                descInput.value = "디자인부터 폐기까지 지속 가능한 선택을 통해 지구를 지키는 올바른 순환 구조에 집중합니다.";
+            } else if (val === 'preset3') {
+                sloganInput.value = "우리가 쉽게 입고 버린 옷, 결국 자연으로";
+                descInput.value = "매초 쏟아지는 의류 폐기물 문제를 해결하기 위해 친환경 ESG 브랜드에 관심을 갖고 수선하여 오래 입읍시다.";
+            } else {
+                sloganInput.value = "";
+                descInput.value = "";
+            }
+            updatePosterText('slogan', sloganInput.value);
+            updatePosterText('desc', descInput.value);
+        }
+
+        // 포스터 캡처 기능 (브라우저 내 미디어 환경 및 iFrame 제한 우회를 위한 캡처 가이드 모달 제공)
+        function capturePoster() {
+            showAlert(
+                "포스터 부착 준비!", 
+                "모바일에서 이 화면을 그대로 캡처(스크린샷)하여 자르거나, 데스크톱에서 브라우저 프린트(Ctrl+P) 기능을 통해 A4 규격으로 출력하여 사용해 보세요.\n실제 교내 곳곳에 부착하기 완벽한 비율로 디자인되었습니다!"
+            );
+        }
+
+        // 커스텀 알림 모달 제어
+        function showAlert(title, message) {
+            document.getElementById('alert-title').innerText = title;
+            document.getElementById('alert-msg').innerHTML = message.replace(/\n/g, '<br>');
+            document.getElementById('alert-modal').classList.remove('hidden');
+        }
+
+        function closeAlert() {
+            document.getElementById('alert-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
+
+```
