@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,13 +9,9 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght=300;400;600;700;800&display=swap');
         body {
             font-family: 'Pretendard', sans-serif;
-        }
-        .step-active {
-            border-color: #10B981;
-            color: #10B981;
         }
     </style>
 </head>
@@ -181,7 +176,6 @@
                     <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
                         <div class="flex items-center gap-3">
                             <span class="p-2.5 bg-indigo-100 text-indigo-600 rounded-lg">
-                                <!-- 가상의 바지 아이콘 대체 -->
                                 <i data-lucide="layers" class="w-5 h-5"></i>
                             </span>
                             <div>
@@ -223,7 +217,7 @@
                             <span id="res-water" class="text-3xl font-extrabold text-emerald-600">0</span>
                             <span class="text-sm font-semibold">리터 (L)</span>
                         </div>
-                        <p id="desc-water" class="text-xs text-emerald-800 leading-relaxed mt-1">스마트폰을 약 0일 동안 충전하지 않고 아낄 수 있는 물의 양입니다.</p>
+                        <p id="desc-water" class="text-xs text-emerald-800 leading-relaxed mt-1">성인 한 사람이 대략 0일 동안 마실 수 있는 소중한 물의 양입니다.</p>
                     </div>
                     <div class="space-y-2">
                         <div class="text-xs font-bold text-emerald-700 tracking-wider">탄소 배출량 (CO2)</div>
@@ -231,7 +225,7 @@
                             <span id="res-co2" class="text-3xl font-extrabold text-emerald-600">0</span>
                             <span class="text-sm font-semibold">kg</span>
                         </div>
-                        <p id="desc-co2" class="text-xs text-emerald-800 leading-relaxed mt-1">소나무 0그루가 1년 동안 흡수해야 하는 탄소량과 같습니다.</p>
+                        <p id="desc-co2" class="text-xs text-emerald-800 leading-relaxed mt-1">30년생 소나무 약 0그루가 1년 동안 흡수해야 하는 엄청난 탄소 배출량과 비견됩니다.</p>
                     </div>
                 </div>
 
@@ -270,11 +264,11 @@
                     
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-2">테마 스타일</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="changePosterTheme('emerald')" class="py-2 px-3 border border-emerald-500 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-700 text-center">에메랄드 포레스트</button>
-                            <button onclick="changePosterTheme('dark')" class="py-2 px-3 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 text-center hover:bg-slate-50">어반 다크</button>
-                            <button onclick="changePosterTheme('rose')" class="py-2 px-3 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 text-center hover:bg-slate-50">로즈 핑크</button>
-                            <button onclick="changePosterTheme('earth')" class="py-2 px-3 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 text-center hover:bg-slate-50">얼스 브라운</button>
+                        <div class="grid grid-cols-2 gap-2" id="theme-btn-container">
+                            <button id="btn-theme-emerald" onclick="changePosterTheme('emerald')" class="py-2.5 px-3 border-2 border-emerald-500 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 text-center shadow-sm transition">에메랄드 포레스트</button>
+                            <button id="btn-theme-dark" onclick="changePosterTheme('dark')" class="py-2.5 px-3 border-2 border-transparent rounded-xl text-xs font-semibold bg-slate-100 text-slate-700 text-center hover:bg-slate-200 transition">어반 다크</button>
+                            <button id="btn-theme-rose" onclick="changePosterTheme('rose')" class="py-2.5 px-3 border-2 border-transparent rounded-xl text-xs font-semibold bg-slate-100 text-slate-700 text-center hover:bg-slate-200 transition">로즈 핑크</button>
+                            <button id="btn-theme-earth" onclick="changePosterTheme('earth')" class="py-2.5 px-3 border-2 border-transparent rounded-xl text-xs font-semibold bg-slate-100 text-slate-700 text-center hover:bg-slate-200 transition">얼스 브라운</button>
                         </div>
                     </div>
 
@@ -306,7 +300,7 @@
                     </div>
                 </div>
 
-                <!-- 오른쪽: 실시간 렌더링 포스터 (모바일 친화, 스크린샷 대응) -->
+                <!-- 오른쪽: 실시간 렌더링 포스터 -->
                 <div class="md:col-span-7 flex flex-col items-center justify-center">
                     <div id="poster-canvas" class="w-full max-w-[360px] aspect-[1/1.4] bg-emerald-600 text-white rounded-3xl p-8 shadow-2xl flex flex-col justify-between relative overflow-hidden transition-all duration-300">
                         
@@ -337,7 +331,7 @@
                                 </p>
                             </div>
 
-                            <!-- 푸터 (환경 아이콘 및 캠페인 가치) -->
+                            <!-- 푸터 -->
                             <div class="border-t border-white/20 pt-4 flex justify-between items-center text-[10px]">
                                 <div class="flex gap-2">
                                     <span class="px-2 py-1 bg-white/10 rounded-full font-bold">#RE_WEAR</span>
@@ -373,7 +367,7 @@
         </div>
     </footer>
 
-    <!-- 알림 모달 (Alert 대체용 커스텀 모달) -->
+    <!-- 알림 모달 -->
     <div id="alert-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[100] hidden">
         <div class="bg-white rounded-2xl p-6 max-w-sm w-full mx-4 shadow-xl text-center space-y-4">
             <div class="mx-auto w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center">
@@ -394,17 +388,14 @@
 
         // 탭 전환 기능
         function switchTab(tabId) {
-            // 모든 탭 컨텐츠 숨기기
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('block'));
             
-            // 모든 탭 버튼 활성화 해제
             document.querySelectorAll('.tab-btn').forEach(el => {
                 el.classList.remove('bg-white', 'text-emerald-600', 'shadow-sm');
                 el.classList.add('text-slate-600', 'hover:text-slate-900');
             });
 
-            // 지정 탭 보이기 및 버튼 활성화
             const activeTab = document.getElementById(`sec-${tabId}`);
             if (activeTab) {
                 activeTab.classList.remove('hidden');
@@ -463,20 +454,14 @@
                 totalCo2 += qty[key] * footprint[key].co2;
             }
 
-            // 결과 업데이트
             document.getElementById('res-water').innerText = totalWater.toLocaleString();
             document.getElementById('res-co2').innerText = totalCo2.toFixed(1);
 
-            // 가치 묘사 계산
-            // 스마트폰 충전 수명 (물 정수 기준 1L 절약 시 스마트폰 약 10시간 완충 시 전력 대비 수치 등 단순 비유 제공)
-            const chargeDays = Math.round(totalWater / 20); 
-            const trees = (totalCo2 / 6.6).toFixed(1); // 소나무 한그루 1년 6.6kg 흡수 기준
-
             document.getElementById('desc-water').innerText = `성인 한 사람이 대략 ${Math.round(totalWater / 2)}일 동안 마실 수 있는 소중한 물의 양입니다.`;
-            document.getElementById('desc-co2').innerText = `30년생 소나무 약 ${trees}그루가 1년 동안 흡수해야 하는 엄청난 탄소 배출량과 비견됩니다.`;
+            document.getElementById('desc-co2').innerText = `30년생 소나무 약 ${(totalCo2 / 6.6).toFixed(1)}그루가 1년 동안 흡수해야 하는 엄청난 탄소 배출량과 비견됩니다.`;
         }
 
-        // 3차시 포스터 제작기 로직
+        // 3차시 포스터 제작기 테마 변경 & 버튼 하이라이트 변경 로직
         function changePosterTheme(theme) {
             const canvas = document.getElementById('poster-canvas');
             const deco1 = document.getElementById('poster-deco-1');
@@ -487,10 +472,21 @@
             const team = document.getElementById('p-team');
             const category = document.getElementById('poster-category');
 
-            // 테마 리스트 초기화
+            // 테마 변경용 버튼 요소들
+            const btnEmerald = document.getElementById('btn-theme-emerald');
+            const btnDark = document.getElementById('btn-theme-dark');
+            const btnRose = document.getElementById('btn-theme-rose');
+            const btnEarth = document.getElementById('btn-theme-earth');
+
+            // 1. 모든 테마 스타일 버튼 클래스 초기화 (기본 회색 연한 배경에 테두리 없음)
+            const allThemeBtns = [btnEmerald, btnDark, btnRose, btnEarth];
+            allThemeBtns.forEach(btn => {
+                btn.className = "py-2.5 px-3 border-2 border-transparent rounded-xl text-xs font-semibold bg-slate-100 text-slate-700 text-center hover:bg-slate-200 transition";
+            });
+
+            // 2. 포스터 캔버스 테마 변경 & 3. 해당 버튼 활성화 색상 링(보더) 지정
             canvas.className = "w-full max-w-[360px] aspect-[1/1.4] rounded-3xl p-8 shadow-2xl flex flex-col justify-between relative overflow-hidden transition-all duration-300 ";
 
-            // 리셋 후 테마별 클래스 삽입
             if (theme === 'emerald') {
                 canvas.classList.add('bg-emerald-600', 'text-white');
                 deco1.className = "absolute top-[-30px] right-[-30px] w-48 h-48 rounded-full bg-emerald-500 opacity-30 blur-2xl";
@@ -500,7 +496,11 @@
                 desc.className = "text-xs md:text-sm text-emerald-100 leading-relaxed break-keep";
                 team.className = "text-xs font-bold text-white mt-0.5";
                 category.className = "text-[10px] uppercase tracking-widest text-emerald-100 font-semibold";
-            } else if (theme === 'dark') {
+
+                // 버튼 하이라이트 (초록 링)
+                btnEmerald.className = "py-2.5 px-3 border-2 border-emerald-500 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 text-center shadow-sm transition";
+            } 
+            else if (theme === 'dark') {
                 canvas.classList.add('bg-slate-900', 'text-white');
                 deco1.className = "absolute top-[-30px] right-[-30px] w-48 h-48 rounded-full bg-emerald-500 opacity-15 blur-2xl";
                 deco2.className = "absolute bottom-[-50px] left-[-30px] w-64 h-64 rounded-full bg-indigo-500 opacity-15 blur-xl";
@@ -509,7 +509,11 @@
                 desc.className = "text-xs md:text-sm text-slate-300 leading-relaxed break-keep";
                 team.className = "text-xs font-bold text-emerald-400 mt-0.5";
                 category.className = "text-[10px] uppercase tracking-widest text-slate-400 font-semibold";
-            } else if (theme === 'rose') {
+
+                // 버튼 하이라이트 (어반 다크도 다른 링 테마처럼 '다크 그레이 링' + '밝은 배경' 스타일로 통일)
+                btnDark.className = "py-2.5 px-3 border-2 border-slate-800 rounded-xl text-xs font-bold bg-slate-50 text-slate-800 text-center shadow-sm transition";
+            } 
+            else if (theme === 'rose') {
                 canvas.classList.add('bg-rose-500', 'text-white');
                 deco1.className = "absolute top-[-30px] right-[-30px] w-48 h-48 rounded-full bg-rose-400 opacity-30 blur-2xl";
                 deco2.className = "absolute bottom-[-50px] left-[-30px] w-64 h-64 rounded-full bg-pink-300 opacity-20 blur-xl";
@@ -518,7 +522,11 @@
                 desc.className = "text-xs md:text-sm text-rose-100 leading-relaxed break-keep";
                 team.className = "text-xs font-bold text-white mt-0.5";
                 category.className = "text-[10px] uppercase tracking-widest text-rose-100 font-semibold";
-            } else if (theme === 'earth') {
+
+                // 버튼 하이라이트 (로즈 핑크 링)
+                btnRose.className = "py-2.5 px-3 border-2 border-rose-500 rounded-xl text-xs font-bold bg-rose-50 text-rose-700 text-center shadow-sm transition";
+            } 
+            else if (theme === 'earth') {
                 canvas.classList.add('bg-amber-800', 'text-amber-50');
                 deco1.className = "absolute top-[-30px] right-[-30px] w-48 h-48 rounded-full bg-amber-700 opacity-35 blur-2xl";
                 deco2.className = "absolute bottom-[-50px] left-[-30px] w-64 h-64 rounded-full bg-emerald-700 opacity-20 blur-xl";
@@ -527,6 +535,9 @@
                 desc.className = "text-xs md:text-sm text-amber-100/90 leading-relaxed break-keep";
                 team.className = "text-xs font-bold text-emerald-300 mt-0.5";
                 category.className = "text-[10px] uppercase tracking-widest text-amber-200 font-semibold";
+
+                // 버튼 하이라이트 (얼스 브라운 링)
+                btnEarth.className = "py-2.5 px-3 border-2 border-amber-700 rounded-xl text-xs font-bold bg-amber-50 text-amber-900 text-center shadow-sm transition";
             }
         }
 
@@ -558,15 +569,13 @@
             updatePosterText('desc', descInput.value);
         }
 
-        // 포스터 캡처 기능 (브라우저 내 미디어 환경 및 iFrame 제한 우회를 위한 캡처 가이드 모달 제공)
         function capturePoster() {
             showAlert(
-                "포스터 부착 준비!", 
-                "모바일에서 이 화면을 그대로 캡처(스크린샷)하여 자르거나, 데스크톱에서 브라우저 프린트(Ctrl+P) 기능을 통해 A4 규격으로 출력하여 사용해 보세요.\n실제 교내 곳곳에 부착하기 완벽한 비율로 디자인되었습니다!"
+                "포스터 부착 준비 완료!", 
+                "모바일에서 이 화면을 그대로 캡처(스크린샷)하여 자르거나, 데스크톱에서 브라우저 인쇄 기능(Ctrl+P)을 활용하여 교내 곳곳에 부착해 보세요. 멋진 환경 보호 캠페인이 활성화됩니다!"
             );
         }
 
-        // 커스텀 알림 모달 제어
         function showAlert(title, message) {
             document.getElementById('alert-title').innerText = title;
             document.getElementById('alert-msg').innerHTML = message.replace(/\n/g, '<br>');
@@ -581,3 +590,4 @@
 </html>
 
 ```
+
